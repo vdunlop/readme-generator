@@ -1,29 +1,94 @@
 // TODO: Include packages needed for this application
 // Standard library package for reading and writing files.
 const fs = require('fs');
+const inquirer = require('inquirer'); 
 
 // Consts used for readme file work.
 const readmeFileName = "./README.md";
 const na = "N/A";  // Entered if there is nothing in a section.
 
 // TODO: Create an array of questions for user input
-const questions = ["Enter your project title.",
-    "Enter a brief description of your project.",
-    "Table of Contents.",
-    "Enter the User Story.",
-    "Enter the Acceptance Criteria.",
-    "Enter the link address for the mockup image.",
-    "Enter instructions for how to install and execute this project.",
-    "Enter information about the usage of this project.",
-    "Enter credits for collaborators (if applicable).",
-    "Enter this project's license.",
-    "Enter badges for this project.",
-    "Enter features.",
-    "Enter how to contribute to this application (if applicable).",
-    "Enter tests welcome.",
-    "Enter your GitHub username.",
-    "Enter your email address"
-];
+inquirer
+    .prompt([
+        {
+            type:'input',
+            message: 'Enter your project title.',
+            name: 'projectTitle',
+        },
+        {
+            type:'input',
+            message: 'Enter a brief description of your project.',
+            name: 'projectDescription',
+        },
+        {
+            type:'input',
+            message: 'Enter the User Story.',
+            name: 'userStory',
+        },
+        {
+            type:'input',
+            message: 'Enter the Acceptance Criteria.',
+            name: 'acceptCriteria',
+        },
+        {
+            type:'input',
+            message: 'Enter the link address for the mockup image.',
+            name: 'linkToMockupImage',
+        },
+        {
+            type:'input',
+            message: 'Enter instructions for how to install and execute this project.',
+            name: 'instructions',
+        },
+        {
+            type:'input',
+            message: 'Enter information about the usage of this project.',
+            name: 'usageInformation',
+        },
+        {
+            type:'input',
+            message: 'Enter credits for collaborators (if applicable).',
+            name: 'collaboratorCredits',
+        },
+        {
+            type:'input',
+            message: "Enter badges for this project.",
+            name: 'badges',
+        },
+        {
+            type:'input',
+            message: 'Enter features.',
+            name: 'projectFeatures',
+        },
+        {
+            type:'checkbox',
+            message: 'Are contributions welcome?',
+            name: 'contributionsWelcome',
+            choices: ["yes","no"],
+        },
+        {
+            type:'checkbox',
+            message: 'Are tests welcome?',
+            name: 'testsWelcome',
+            choices: ["yes","no"],
+        },
+        {
+            type:'input',
+            message: 'Enter your GitHub username.',
+            name: 'gitUserName',
+        },
+        {
+            type:'input',
+            message: 'Enter your email address.',
+            name: 'emailAddress',
+        },
+    ])
+     .then((responses) => {
+        console.log('responses :>>' + responses);
+    //    const answers = '${response.name.toLowerCase()}.json';
+    //    fs.writeFile(filename, '${JSON.stringify(response, null, 2)}\n', (err) =>
+     //     (err) ? console.error(err) : console.log('success'));
+      });
 
 // Headers for each section. Each section has a correlating question in the questions array.
 const headers = ["# ",
@@ -88,4 +153,4 @@ function init() {
 }
 
 // Function call to initialize app
-init();
+//init();
