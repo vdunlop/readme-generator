@@ -1,97 +1,138 @@
 // TODO: Include packages needed for this application
 // Standard library package for reading and writing files.
 const fs = require('fs');
-const inquirer = require('inquirer'); 
+const inquirer = require('inquirer');
+
+// Include our js for generating the markdown file (README)
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // Consts used for readme file work.
-const readmeFileName = "./README.md";
+const readmeFileName = "./testREADME.md";
 const na = "N/A";  // Entered if there is nothing in a section.
 
 // TODO: Create an array of questions for user input
 inquirer
     .prompt([
+               {
+                   type: 'input',
+                   message: 'Enter your project title.',
+                   name: 'projectTitle',
+               },
         {
-            type:'input',
-            message: 'Enter your project title.',
-            name: 'projectTitle',
-        },
-        {
-            type:'input',
-            message: 'Enter a brief description of your project.',
+            type: 'editor',
+            message: 'Enter a brief description of your project. ',
             name: 'projectDescription',
         },
+               {
+                   type: 'editor',
+                   message: 'Enter the User Story.',
+                   name: 'userStory',
+               },
+               {
+                   type: 'editor',
+                   message: 'Enter the Acceptance Criteria.',
+                   name: 'acceptCriteria',
+               },
+               {
+                   type: 'input',
+                   message: 'Enter the link address for the mockup image.',
+                   name: 'linkToMockupImage',
+               },
+               {
+                   type: 'editor',
+                   message: 'Enter instructions for how to install and execute this project.',
+                   name: 'instructions',
+               },
+               {
+                   type: 'editor',
+                   message: 'Enter information about the usage of this project.',
+                   name: 'usageInformation',
+               },
+               {
+                   type: 'editor',
+                   message: 'Enter credits for collaborators (if applicable).',
+                   name: 'collaboratorCredits',
+                   default: 'N/A',
+               },
         {
-            type:'input',
-            message: 'Enter the User Story.',
-            name: 'userStory',
+            type: 'list',
+            message: 'Choose the license for your project.',
+            choices: ['N/A', 'Apache License 2.0', 'GNU Gneral Public License v3.0',
+                'MIT License', 'BSD 2-Clause "Simplified" License', 'BSD 3-Clause "New" or "Revised" License',
+                'Boost Software License 1.0', 'Creative Commons Zero v1.0 Universal', 'GNU Affero General Public License v3.0',
+                'Mozilla Public License 2.0', 'The Unlicense'],
+            name: 'license',
         },
+               {
+                   type: 'editor',
+                   message: "Enter badges for this project.",
+                   name: 'badges',
+                   default: 'N/A',
+               },
+               {
+                   type: 'editor',
+                   message: 'Enter features.',
+                   name: 'projectFeatures',
+                   default: 'N/A',
+               },
         {
-            type:'input',
-            message: 'Enter the Acceptance Criteria.',
-            name: 'acceptCriteria',
-        },
-        {
-            type:'input',
-            message: 'Enter the link address for the mockup image.',
-            name: 'linkToMockupImage',
-        },
-        {
-            type:'input',
-            message: 'Enter instructions for how to install and execute this project.',
-            name: 'instructions',
-        },
-        {
-            type:'input',
-            message: 'Enter information about the usage of this project.',
-            name: 'usageInformation',
-        },
-        {
-            type:'input',
-            message: 'Enter credits for collaborators (if applicable).',
-            name: 'collaboratorCredits',
-        },
-        {
-            type:'input',
-            message: "Enter badges for this project.",
-            name: 'badges',
-        },
-        {
-            type:'input',
-            message: 'Enter features.',
-            name: 'projectFeatures',
-        },
-        {
-            type:'checkbox',
+            type: 'list',
             message: 'Are contributions welcome?',
             name: 'contributionsWelcome',
-            choices: ["yes","no"],
+            choices: ['yes','no'],
+            default: 'no',
         },
         {
-            type:'checkbox',
+            type: 'list',
             message: 'Are tests welcome?',
             name: 'testsWelcome',
-            choices: ["yes","no"],
+            choices: ['yes','no'],
+            default: 'no',
         },
         {
-            type:'input',
+            type: 'input',
             message: 'Enter your GitHub username.',
             name: 'gitUserName',
         },
         {
-            type:'input',
+            type: 'input',
             message: 'Enter your email address.',
             name: 'emailAddress',
         },
     ])
-     .then((responses) => {
-        console.log('responses :>>' + responses);
-    //    const answers = '${response.name.toLowerCase()}.json';
-    //    fs.writeFile(filename, '${JSON.stringify(response, null, 2)}\n', (err) =>
-     //     (err) ? console.error(err) : console.log('success'));
-      });
+    .then((responses) => {
+      /*  console.log('responses :>>' + responses.projectTitle);
+        console.log('responses :>>' + responses.projectDescription);
+        console.log('responses :>>' + responses.userStory);
+        console.log('responses :>>' + responses.acceptCriteria);
+        console.log('responses :>>' + responses.linkToMockupImage);
+        console.log('responses :>>' + responses.instructions);
+        console.log('responses :>>' + responses.usageInformation);
+        console.log('responses :>>' + responses.collaboratorCredits);
+        console.log('responses :>>' + responses.license);
+        console.log('responses :>>' + responses.badges);
+        console.log('responses :>>' + responses.projectFeatures);
+        console.log('responses :>>' + responses.contributionsWelcome);
+        console.log('responses :>>' + responses.testsWelcome);
+        console.log('responses :>>' + responses.gitUserName);
+        console.log('responses :>>' + responses.emailAddress);*/
+console.log(responses);
+        const projectTitle = `${responses.emailAddress.toLowerCase().split(' ').join('')}`;
+        
+        //console.log(answers);
+        console.log(`${responses.emailAddress}`);
+        fs.writeFile(readmeFileName,JSON.stringify(responses,null,'\t'),(err) =>
+        err ? console.log(err) : console.log('Success!')
+        );
+    });
+
+        //    fs.writeFile(filename, '${JSON.stringify(response, null, 2)}\n', (err) =>
+        //     (err) ? console.error(err) : console.log('success'));
+    //});
 
 // Headers for each section. Each section has a correlating question in the questions array.
-const headers = ["# ",
+const headers = [
+    "# ",   // this is the title
     "## Description",
     '## Table of Contents',
     "### User Story",
@@ -105,8 +146,7 @@ const headers = ["# ",
     "## Features",
     "## Contributing",
     "## Tests",
-    "## Questions",
-    "Email: "
+    "## Questions",           // email and GitHub name go here
 ];
 
 // TODO: Create a function to write README file
@@ -117,39 +157,29 @@ function writeToFile(fileName, data) {
     // Check to see if the readme file has been created yet.
     // Use writeFile for new file
     // Use appendFile for existing file
-    fs.appendFile(fileName, function(err) {
+    fs.appendFile(fileName, function (err) {
         if (err) {
             console.error(err);
-            fs.writeFile(fileName, data, (err2)=>
-            err2?console.error(err):console.log("success2"));
+            fs.writeFile(fileName, data, (err2) =>
+                err2 ? console.error(err) : console.log("success2"));
             console.log("in error");
             console.error(err);
-        } else{
+        } else {
             //fs.appendFile(fileName, data);
             console.log("success");
         }
     });
- 
-//    if (fs.open(fileName)) {
-//        fs.appendFile(fileName, data);
-//    } else {
-//        fs.writeFile(fileName, data);
-//    }
-}
 
-// Prompt user for the readme file's contents
-function promptUser() {
-
-    for (var i = 0; i < questions.length; i++) {
-        console.log(questions[i]);
-        console.log(headers[i]);
-    }
+    //    if (fs.open(fileName)) {
+    //        fs.appendFile(fileName, data);
+    //    } else {
+    //        fs.writeFile(fileName, data);
+    //    }
 }
 
 // TODO: Create a function to initialize app
 function init() {
-    promptUser();
-    writeToFile(readmeFileName,"I am writing some data");
+    writeToFile(readmeFileName, "I am writing some data");
 }
 
 // Function call to initialize app
