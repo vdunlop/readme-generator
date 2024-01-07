@@ -10,7 +10,26 @@ const generateMarkdown = require('./utils/generateMarkdown');
 const readmeFileName = "./testREADME.md";
 const na = "N/A";  // Entered if there is nothing in a section.
 
-// TODO: Create an array of questions for user input
+// Headers for each section. Each section has a correlating question in the questions array.
+const headers = [
+    "# ",   // this is the title
+    "## Description",
+    '## Table of Contents',
+    "### User Story",
+    "### Acceptance Criteria",
+    "### Mock Up",
+    "## Installation/Execution",
+    "## Usage",
+    "## Credits",
+    "## License",
+    "## Badge(s)",
+    "## Features",
+    "## Contributing",
+    "## Tests",
+    "## Questions",           // email and GitHub name go here
+];
+
+// Questions for user input
 inquirer
     .prompt([
                {
@@ -18,7 +37,7 @@ inquirer
                    message: 'Enter your project title.',
                    name: 'projectTitle',
                },
- /*       {
+       /* {
             type: 'editor',
             message: 'Enter a brief description of your project. ',
             name: 'projectDescription',
@@ -53,7 +72,7 @@ inquirer
                    message: 'Enter credits for collaborators (if applicable).',
                    name: 'collaboratorCredits',
                    default: 'N/A',
-               },*/
+               },
         {
             type: 'list',
             message: 'Choose the license for your project.',
@@ -63,7 +82,7 @@ inquirer
                 'Mozilla Public License 2.0', 'The Unlicense'],
             name: 'license',
         },
-              /* {
+              {
                    type: 'editor',
                    message: "Enter badges for this project.",
                    name: 'badges',
@@ -74,7 +93,7 @@ inquirer
                    message: 'Enter features.',
                    name: 'projectFeatures',
                    default: 'N/A',
-               },*/
+               },
         {
             type: 'list',
             message: 'Are contributions welcome?',
@@ -93,7 +112,7 @@ inquirer
             type: 'input',
             message: 'Enter your GitHub username.',
             name: 'gitUserName',
-        },
+        },*/
         {
             type: 'input',
             message: 'Enter your email address.',
@@ -103,13 +122,7 @@ inquirer
     .then((responses) => {
       
 console.log(responses);
-const responseArr = [];
-for (let i in responses) {
-    responseArr.push([i,responses[i]]);
-}
-console.log(responseArr);
-console.log(responseArr[0][1]);
-generateMarkdown.renderLicenseSection(responses);
+//generateMarkdown.renderLicenseSection(responses);
 writeToFile(readmeFileName,responses);
 //fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
 //fs.writeFile(readmeFileName,JSON.stringify(responses.license),(err) => err ? console.log(err) : console.log('Success'));
@@ -126,37 +139,35 @@ writeToFile(readmeFileName,responses);
         //     (err) ? console.error(err) : console.log('success'));
     //});
 
-// Headers for each section. Each section has a correlating question in the questions array.
-const headers = [
-    "# ",   // this is the title
-    "## Description",
-    '## Table of Contents',
-    "### User Story",
-    "### Acceptance Criteria",
-    "### Mock Up",
-    "## Installation/Execution",
-    "## Usage",
-    "## Credits",
-    "## License",
-    "## Badge(s)",
-    "## Features",
-    "## Contributing",
-    "## Tests",
-    "## Questions",           // email and GitHub name go here
-];
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
     console.log(fileName);
     console.log(data);
+    const responseArr = [];
 
+    for (let i in data) {
+        responseArr.push([i,data[i]]);
+    }
+    console.log(responseArr);
+    console.log(responseArr[0][1]);
+    
     // Use writeFile for the first write. This will either create the file and write the first line of it
     // or overwrite an old file. Eventually a check could be put in to see if you want the old file overwritten
     // The first line is always the title.
-    const lineStr = headers[0] + data.projectTitle;
+    const lineStr = headers[0] + responseArr[0][1];
     fs.writeFile(readmeFileName, lineStr, (err) => err ? console.log(err) : console.log('title written'));
 //    fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
         
+    // Start at Description (the second array position)
+    for (let responseArrPtr = 1; responseArrPtr < responseArr.length; responseArrPtr++) {
+        console.log("arrptr = " + responseArrPtr);
+        console.log("length of arr = " + responseArr.length);
+        const lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1];
+        console.log('linestr = ' + lineStr);
+        fs.appendFile(readmeFileName, lineStr, (err) => err ? console.log(err) : console.log(responseArrPtr + ' written'));
+    }
     // Use appendFile for existing file
 /*    fs.writeFile(fileName, function (err) {
         if (err) {
