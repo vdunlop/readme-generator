@@ -18,7 +18,7 @@ inquirer
                    message: 'Enter your project title.',
                    name: 'projectTitle',
                },
-        {
+ /*       {
             type: 'editor',
             message: 'Enter a brief description of your project. ',
             name: 'projectDescription',
@@ -53,7 +53,7 @@ inquirer
                    message: 'Enter credits for collaborators (if applicable).',
                    name: 'collaboratorCredits',
                    default: 'N/A',
-               },
+               },*/
         {
             type: 'list',
             message: 'Choose the license for your project.',
@@ -63,7 +63,7 @@ inquirer
                 'Mozilla Public License 2.0', 'The Unlicense'],
             name: 'license',
         },
-               {
+              /* {
                    type: 'editor',
                    message: "Enter badges for this project.",
                    name: 'badges',
@@ -74,7 +74,7 @@ inquirer
                    message: 'Enter features.',
                    name: 'projectFeatures',
                    default: 'N/A',
-               },
+               },*/
         {
             type: 'list',
             message: 'Are contributions welcome?',
@@ -101,29 +101,25 @@ inquirer
         },
     ])
     .then((responses) => {
-      /*  console.log('responses :>>' + responses.projectTitle);
-        console.log('responses :>>' + responses.projectDescription);
-        console.log('responses :>>' + responses.userStory);
-        console.log('responses :>>' + responses.acceptCriteria);
-        console.log('responses :>>' + responses.linkToMockupImage);
-        console.log('responses :>>' + responses.instructions);
-        console.log('responses :>>' + responses.usageInformation);
-        console.log('responses :>>' + responses.collaboratorCredits);
-        console.log('responses :>>' + responses.license);
-        console.log('responses :>>' + responses.badges);
-        console.log('responses :>>' + responses.projectFeatures);
-        console.log('responses :>>' + responses.contributionsWelcome);
-        console.log('responses :>>' + responses.testsWelcome);
-        console.log('responses :>>' + responses.gitUserName);
-        console.log('responses :>>' + responses.emailAddress);*/
+      
 console.log(responses);
+const responseArr = [];
+for (let i in responses) {
+    responseArr.push([i,responses[i]]);
+}
+console.log(responseArr);
+console.log(responseArr[0][1]);
+generateMarkdown.renderLicenseSection(responses);
+writeToFile(readmeFileName,responses);
+//fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
+//fs.writeFile(readmeFileName,JSON.stringify(responses.license),(err) => err ? console.log(err) : console.log('Success'));
         const projectTitle = `${responses.emailAddress.toLowerCase().split(' ').join('')}`;
         
         //console.log(answers);
-        console.log(`${responses.emailAddress}`);
-        fs.writeFile(readmeFileName,JSON.stringify(responses,null,'\t'),(err) =>
-        err ? console.log(err) : console.log('Success!')
-        );
+        //console.log(`${responses.emailAddress}`);
+        //fs.writeFile(readmeFileName,JSON.stringify(responses,null,'\t'),(err) =>
+        //err ? console.log(err) : console.log('Success!')
+        //);
     });
 
         //    fs.writeFile(filename, '${JSON.stringify(response, null, 2)}\n', (err) =>
@@ -154,10 +150,15 @@ function writeToFile(fileName, data) {
     console.log(fileName);
     console.log(data);
 
-    // Check to see if the readme file has been created yet.
-    // Use writeFile for new file
+    // Use writeFile for the first write. This will either create the file and write the first line of it
+    // or overwrite an old file. Eventually a check could be put in to see if you want the old file overwritten
+    // The first line is always the title.
+    const lineStr = headers[0] + data.projectTitle;
+    fs.writeFile(readmeFileName, lineStr, (err) => err ? console.log(err) : console.log('title written'));
+//    fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
+        
     // Use appendFile for existing file
-    fs.appendFile(fileName, function (err) {
+/*    fs.writeFile(fileName, function (err) {
         if (err) {
             console.error(err);
             fs.writeFile(fileName, data, (err2) =>
@@ -165,10 +166,10 @@ function writeToFile(fileName, data) {
             console.log("in error");
             console.error(err);
         } else {
-            //fs.appendFile(fileName, data);
+            fs.appendFile(fileName, data);
             console.log("success");
         }
-    });
+    });*/
 
     //    if (fs.open(fileName)) {
     //        fs.appendFile(fileName, data);
@@ -184,3 +185,20 @@ function init() {
 
 // Function call to initialize app
 //init();
+/////////////////////////////////////////////////////////////////
+/* save for later??? */
+/*  console.log('responses :>>' + responses.projectTitle);
+        console.log('responses :>>' + responses.projectDescription);
+        console.log('responses :>>' + responses.userStory);
+        console.log('responses :>>' + responses.acceptCriteria);
+        console.log('responses :>>' + responses.linkToMockupImage);
+        console.log('responses :>>' + responses.instructions);
+        console.log('responses :>>' + responses.usageInformation);
+        console.log('responses :>>' + responses.collaboratorCredits);
+        console.log('responses :>>' + responses.license);
+        console.log('responses :>>' + responses.badges);
+        console.log('responses :>>' + responses.projectFeatures);
+        console.log('responses :>>' + responses.contributionsWelcome);
+        console.log('responses :>>' + responses.testsWelcome);
+        console.log('responses :>>' + responses.gitUserName);
+        console.log('responses :>>' + responses.emailAddress);*/
