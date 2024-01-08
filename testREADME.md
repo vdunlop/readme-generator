@@ -1,33 +1,38 @@
 # readme
 
-## Description
-description of project
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### User Story
-user story
+## Description
+ WHEN I choose a license for my application from a list of options
+THEN a badge for that license is added near the top of the README and a notice is added to the sect
 
 ### Acceptance Criteria
-accept criteria
-
+WHEN I choose a license for my application from a list of options
+THEN a badge for that license is added near the top of the README and a notice is added to the sect
 
 ### Mock Up
-https://www.google.com
+www.google.com
+
+### User Story
+WHEN I choose a license for my application from a list of options
+THEN a badge for that license is added near the top of the README and a notice is added to the sect
 
 ## Installation/Execution
-instructions
+WHEN I choose a license for my application from a list of options
+THEN a badge for that license is added near the top of the README and a notice is added to the sect
+
+## Usage
+N/A
 
 ## Credits
 N/A
 
-## Usage
-useage
-
 ## License
-The UnlicenseThe UnlicenseThe Unlicense
+MIT License
 
-## Badge(s)
-gitvicki
+## Contributing
+vicki
 
 ## Features
-vicki.vicki
+gitvicki
 

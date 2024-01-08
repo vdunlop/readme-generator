@@ -23,7 +23,6 @@ const headers = [
   "## Usage\n",
   "## Credits\n",
   "## License\n",
-  "## Badge(s)\n",
   "## Features\n",
   "## Contributing\n",
   "## Tests\n",
@@ -33,6 +32,20 @@ const tocStr = "## Table of Contents\n";
 
 // Initialize
 function init() {
+}
+
+// Write the string to the file.
+function writeLine(fileName, textStr) {
+  fs.writeFile(fileName, textStr, (err) =>
+    err ? console.log(err) : console.log("title written")
+  );
+}
+
+// Append the string to the file.
+function appendLine(fileName, textStr) {
+  fs.appendFile(fileName, textStr, (err) =>
+    err ? console.log(err) : console.log("title written")
+  );
 }
 
 // This function writes the user input into the README file.
@@ -47,35 +60,24 @@ function writeToFile(fileName, data) {
   }
   console.log(responseArr);
 
-  // Use writeFile for the first write. This will either create the file and write the first line of it
+  // Process Title
+  // 1. Use writeFile for the first write. This will either create the file and write the first line of it
   // or overwrite the existing file. Eventually a check could be put in to see if you want the old file overwritten.
-  //
-  // The first line is always the title.
-  // generateMarkdown generates the markdown format for the title.
-  // The title is doublespaced before the next heading.
+  // 2. The first line in README is always the title.
   let lineStr = generateMarkdown.generateMarkdown(data) + newLineReturnStr;
+  writeLine(readmeFileName, lineStr);
 
-  fs.writeFile(readmeFileName, lineStr, (err) =>
-    err ? console.log(err) : console.log("title written")
-  );
+  // 3. The title is followed by the badges.
+  lineStr = generateMarkdown.renderLicenseBadge(data.license) + generateMarkdown.renderLicenseLink(data.license) + newLineReturnStr;
+  appendLine(readmeFileName, lineStr);
 
   // Continue at Description input (the second array position) and go through Questions as the last input answer.
   for (let responseArrPtr = 1; responseArrPtr < responseArr.length; responseArrPtr++) {
     console.log("arrptr = " + responseArrPtr);
     console.log("length of arr = " + responseArr.length);
-
-    switch (responseArr[responseArrPtr][0]) {
-        case 'license' :
-            lineStr = headers[responseArrPtr] + generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]) + newLineReturnStr;
-            //generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]);
-            break;
-        default:
-            lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
-    }
+    lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
     console.log("linestr = " + lineStr);
-    fs.appendFile(readmeFileName, lineStr, (err) =>
-      err ? console.log(err) : console.log(responseArrPtr + " written")
-    );
+    appendLine(readmeFileName, lineStr);
   }
 }
 
@@ -142,12 +144,7 @@ inquirer
       ],
       name: "license",
     },
-    /*{
-      type: "editor",
-      message: "Enter badges for this project.",
-      name: "badges",
-      default: "N/A",
-    },
+    /*
     {
       type: "editor",
       message: "Enter features.",
@@ -200,7 +197,6 @@ inquirer
         console.log('responses :>>' + responses.usageInformation);
         console.log('responses :>>' + responses.collaboratorCredits);
         console.log('responses :>>' + responses.license);
-        console.log('responses :>>' + responses.badges);
         console.log('responses :>>' + responses.projectFeatures);
         console.log('responses :>>' + responses.contributionsWelcome);
         console.log('responses :>>' + responses.testsWelcome);
@@ -239,3 +235,11 @@ inquirer
 //    } else {
 //        fs.writeFile(fileName, data);
 //    }
+/*    switch (responseArr[responseArrPtr][0]) {
+        case 'license' :
+            lineStr = headers[responseArrPtr] + generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]) + newLineReturnStr;
+            //generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]);
+            break;
+        default:
+            lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
+    }*/

@@ -53,17 +53,10 @@ for (let i = 0; i < licenseLinkArr.length; i++){
 // This function returns the license section of README.
 // If there is no license, return an empty string.
 function renderLicenseSection(license) {
-  let licenseLink = "";
-  let licenseBadge = "";
   if (license == undefined) {
     return "";
   } else {
-    licenseLink = renderLicenseLink(license);
-    console.log("liclink " + licenseLink);
-    licenseBadge = renderLicenseBadge(license);
-    console.log("licbadge " +licenseBadge);
-    console.log("license " +license);
-    return license + licenseBadge + licenseLink;
+     return license;
   }
 }
 
@@ -72,4 +65,4 @@ function generateMarkdown(data) {
   return `# ${data.title}`;
 }
 
-module.exports = { generateMarkdown, renderLicenseSection };
+module.exports = { generateMarkdown, renderLicenseSection, renderLicenseLink, renderLicenseBadge };
