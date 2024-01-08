@@ -22,7 +22,6 @@ console.log(license);
     }
   }
     return('');
-
 }
 
 // This function returns the license link.
@@ -60,9 +59,55 @@ function renderLicenseSection(license) {
   }
 }
 
+// This function returns the Questions section formatted for README.
+function renderQuestionsSection(data) {
+  const questionsTextStr = "For questions and/or comments, I can be contacted at:\r\n\r\n";
+  const gitNameStr = "Github: ";
+  const emailStr = "Email: ";
+  const newLineReturnStr = "\r\n\r\n";
+
+  return(newLineReturnStr + questionsTextStr + newLineReturnStr + 
+    gitNameStr + data.gitUserName + newLineReturnStr + 
+    emailStr + data.emailAddress + newLineReturnStr);
+}
+
+function prepHeading(dataStr) {
+  let newStr = dataStr.replaceAll('#', '');  // remove #'s
+  newStr = newStr.substr(1, dataStr.length);  // remove leading space
+  return newStr;
+}
+// This function returns the Table of Contents section formatted for README.
+function renderTOCSection(tocStr, data) {
+  const newLineReturnStr = "\r\n\r\n";
+  let newLineStr = tocStr + newLineReturnStr;
+  let headerStr = '';
+
+  for (let i=1; i < data.length; i++) {
+    headerStr = prepHeading(data[i]);
+    console.log("heading = " + headerStr + " from " + data[i]);
+    newLineStr += '[' + headerStr + ']' + '(#' + headerStr.toLocaleLowerCase() + ')' + newLineReturnStr;
+  }
+  //console.log("new line " + newLineStr);
+
+  return newLineStr;
+}
+
+/*
+  return(newLineReturnStr + questionsTextStr + newLineReturnStr + 
+    gitNameStr + data.gitUserName + newLineReturnStr + 
+    emailStr + data.emailAddress + newLineReturnStr);
+}*/
+
 // Generate markdown for README file title.
 function generateMarkdown(data) {
   return `# ${data.title}`;
 }
 
-module.exports = { generateMarkdown, renderLicenseSection, renderLicenseLink, renderLicenseBadge };
+module.exports = { 
+  generateMarkdown, 
+  renderLicenseSection, 
+  renderLicenseLink, 
+  renderLicenseBadge,
+  renderQuestionsSection,
+  renderTOCSection
+};

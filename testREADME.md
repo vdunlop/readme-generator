@@ -1,38 +1,60 @@
-# readme
+# readme-generator
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Description
- WHEN I choose a license for my application from a list of options
-THEN a badge for that license is added near the top of the README and a notice is added to the sect
+## Table of Contents
+[Description](#description)
 
-### Acceptance Criteria
-WHEN I choose a license for my application from a list of options
-THEN a badge for that license is added near the top of the README and a notice is added to the sect
+[User Story](#user story)
 
-### Mock Up
-www.google.com
+[Acceptance Criteria](#acceptance criteria)
 
-### User Story
-WHEN I choose a license for my application from a list of options
-THEN a badge for that license is added near the top of the README and a notice is added to the sect
+[Mock Up](#mock up)
 
-## Installation/Execution
-WHEN I choose a license for my application from a list of options
-THEN a badge for that license is added near the top of the README and a notice is added to the sect
+[Installation/Execution](#installation/execution)
+
+[Usage](#usage)
+
+[Credits](#credits)
+
+[License](#license)
+
+[Features](#features)
+
+[Contributing](#contributing)
+
+[Tests](#tests)
+
+[Questions](#questions)
+
+## User Story
+na
+
+## Mock Up
+na
+
+## Acceptance Criteria
+na
 
 ## Usage
-N/A
 
 ## Credits
-N/A
-
-## License
-MIT License
 
 ## Contributing
-vicki
+
+## Tests
+no
 
 ## Features
-gitvicki
 
+## Description
+Thjis is adka;djf a;kej;eoi
+
+## License
+GNU General Public License v3.0
+
+## Questions
+For questions and/or comments, I can be contacted at:
+Github: undefined
+
+Email: undefined
