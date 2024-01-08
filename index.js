@@ -17,10 +17,10 @@ const tocHeader = "## Table of Contents\n";
 const headers = [
   "# ", // this is the title
   "## Description",
-  "### User Story",
-  "### Acceptance Criteria",
-  "### Mock Up",
-  "## Installation/Execution",
+  "### User-Story",
+  "### Acceptance-Criteria",
+  "### Mock-Up",
+  "## Installation-Execution",
   "## Usage",
   "## Credits",
   "## License",

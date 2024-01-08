@@ -79,13 +79,13 @@ function prepHeading(dataStr) {
 // This function returns the Table of Contents section formatted for README.
 function renderTOCSection(tocStr, data) {
   const newLineReturnStr = "\r\n\r\n";
-  let newLineStr = tocStr + newLineReturnStr;
+let newLineStr = tocStr + newLineReturnStr;
   let headerStr = '';
 
   for (let i=1; i < data.length; i++) {
     headerStr = prepHeading(data[i]);
     console.log("heading = " + headerStr + " from " + data[i]);
-    newLineStr += '[' + headerStr + ']' + '(#' + headerStr.toLocaleLowerCase() + ')' + newLineReturnStr;
+    newLineStr += '[' + headerStr + ']' + '(#' + headerStr.toLowerCase() + ')' + newLineReturnStr;
   }
   //console.log("new line " + newLineStr);
 

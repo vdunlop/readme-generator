@@ -5,13 +5,13 @@
 ## Table of Contents
 [Description](#description)
 
-[User Story](#user story)
+[UserStory](#userstory)
 
-[Acceptance Criteria](#acceptance criteria)
+[AcceptanceCriteria](#acceptancecriteria)
 
-[Mock Up](#mock up)
+[MockUp](#mockup)
 
-[Installation/Execution](#installation/execution)
+[Installation-Execution](#installation-execution)
 
 [Usage](#usage)
 
@@ -27,16 +27,18 @@
 
 [Questions](#questions)
 
-## User Story
+## UserStory
 na
 
-## Mock Up
+## MockUp
 na
 
-## Acceptance Criteria
+## AcceptanceCriteria
 na
 
 ## Usage
+
+## Installation-Execution
 
 ## Credits
 
