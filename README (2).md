@@ -1,10 +1,9 @@
 # readme-generator
-This app will create a high-quality README.md file using input from the user and utilizing README guidelines from "Request-Response The Full-Stack Blog: Professional README Guide 11-14-2023".
 
 ## Description
 The readme-generator app is a command-line application that dynamically generates a professional README file from a user's input. The README.md file will be created following guidelines from "Request-Response The Full-Stack Blog: Professional README Guide 11-14-2023".
 
-## User Story
+### User Story
 AS A developer
 
 I WANT a README generator
@@ -42,7 +41,7 @@ WHEN I click on the links in the Table of Contents
 
 THEN I am taken to the corresponding section of the README
 
-### Mock Up
+## Mock Up
 Screen shot of the main page:
 
 ![weather dashboard main page](./Assets/images/main_screenshot.png)
