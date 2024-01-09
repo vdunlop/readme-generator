@@ -8,7 +8,7 @@ const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 
 // Consts used for readme file work.
-const readmeFileName = "./testREADME.md";
+const readmeFileName = "./README.md";
 const na = "N/A"; // Entered if there is nothing in a section.
 const newLineReturnStr = "\r\n\r\n";
 const tocHeader = "## Table of Contents\n";
@@ -49,37 +49,36 @@ function writeToFile(fileName, data) {
   // Process Title
   // The first line in README is always the title.
   let readmeText = generateMarkdown.generateMarkdown(data) + newLineReturnStr;
-console.log("readmeText----------------" + readmeText);
+//console.log("readmeText----------------" + readmeText);
   // The title is followed by the badges.
   readmeText += generateMarkdown.renderLicenseBadge(data.license) + generateMarkdown.renderLicenseLink(data.license) + newLineReturnStr;
-  console.log("readmeText----------------" + readmeText);
+  //console.log("readmeText----------------" + readmeText);
 
   // Process Table of Contents
   readmeText += generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
-  console.log("readmeText----------------" + readmeText);
+  //console.log("readmeText----------------" + readmeText);
 
   // Continue at Description (the second data input) and go through Questions as the last input answer.
   for (let responseArrPtr = 1; responseArrPtr < responseArr.length; responseArrPtr++) {
-    console.log("arrptr = " + responseArrPtr);
-    console.log("length of arr = " + responseArr.length);
+    //console.log("arrptr = " + responseArrPtr);
+    //console.log("length of arr = " + responseArr.length);
     switch (responseArr[responseArrPtr][0]) {
       case 'gitUserName' :
-           readmeText += headers[responseArrPtr] + generateMarkdown.renderQuestionsSection(data);
-           console.log("readmeText----------------" + readmeText);
+           readmeText += headers[responseArrPtr] + newLineReturnStr + generateMarkdown.renderQuestionsSection(data);
+           //console.log("readmeText----------------" + readmeText);
 
           break;
       case 'emailAddress' :
           break; // was handled in 'gitUserName'
       default:
-          readmeText += headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
-          console.log("readmeText----------------" + readmeText);
-
+          readmeText += headers[responseArrPtr] + newLineReturnStr + responseArr[responseArrPtr][1] + newLineReturnStr;
+          //console.log("readmeText----------------" + readmeText);
     }
   }
 
   // Write the formatted input to the readme file.
   fs.writeFile(fileName, readmeText, (err) =>
-  err ? console.log(err) : console.log("readme written")
+  err ? console.log(err) : console.log("README written.")
 );
 }
 
@@ -178,69 +177,9 @@ inquirer
     },
   ])
   .then((responses) => {
+    // Initialize if needed.
     init();
-    //console.log(responses);
 
     // Format and write responses to the README file.
     writeToFile(readmeFileName, responses);
   });
-
-// Function call to initialize app
-//init();
-/////////////////////////////////////////////////////////////////
-/* save for later??? */
-/*  console.log('responses :>>' + responses.projectTitle);
-        console.log('responses :>>' + responses.projectDescription);
-        console.log('responses :>>' + responses.userStory);
-        console.log('responses :>>' + responses.acceptCriteria);
-        console.log('responses :>>' + responses.linkToMockupImage);
-        console.log('responses :>>' + responses.instructions);
-        console.log('responses :>>' + responses.usageInformation);
-        console.log('responses :>>' + responses.collaboratorCredits);
-        console.log('responses :>>' + responses.license);
-        console.log('responses :>>' + responses.projectFeatures);
-        console.log('responses :>>' + responses.contributionsWelcome);
-        console.log('responses :>>' + responses.testsWelcome);
-        console.log('responses :>>' + responses.gitUserName);
-        console.log('responses :>>' + responses.emailAddress);*/
-//fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
-//fs.writeFile(readmeFileName,JSON.stringify(responses.license),(err) => err ? console.log(err) : console.log('Success'));
-//const projectTitle = `${responses.emailAddress.toLowerCase().split(' ').join('')}`;
-
-//console.log(answers);
-//console.log(`${responses.emailAddress}`);
-//fs.writeFile(readmeFileName,JSON.stringify(responses,null,'\t'),(err) =>
-//err ? console.log(err) : console.log('Success!')
-//);
-
-//    fs.writeFile(filename, '${JSON.stringify(response, null, 2)}\n', (err) =>
-//     (err) ? console.error(err) : console.log('success'));
-//});
-//    fs.writeFile(readmeFileName,responses.license,(err) => err ? console.log(err) : console.log('Success'));
-// Use appendFile for existing file
-/*    fs.writeFile(fileName, function (err) {
-        if (err) {
-            console.error(err);
-            fs.writeFile(fileName, data, (err2) =>
-                err2 ? console.error(err) : console.log("success2"));
-            console.log("in error");
-            console.error(err);
-        } else {
-            fs.appendFile(fileName, data);
-            console.log("success");
-        }
-    });*/
-
-//    if (fs.open(fileName)) {
-//        fs.appendFile(fileName, data);
-//    } else {
-//        fs.writeFile(fileName, data);
-//    }
-/*    switch (responseArr[responseArrPtr][0]) {
-        case 'license' :
-            readmeText = headers[responseArrPtr] + generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]) + newLineReturnStr;
-            //generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]);
-            break;
-        default:
-            readmeText = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
-    }*/
