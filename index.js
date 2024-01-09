@@ -34,63 +34,53 @@ const headers = [
 function init() {
 }
 
-// Write the string to the file.
-function writeLine(fileName, textStr) {
-  fs.writeFile(fileName, textStr, (err) =>
-    err ? console.log(err) : console.log(textStr + " written")
-  );
-}
-
-// Append the string to the file.
-function appendLine(fileName, textStr) {
-  fs.appendFile(fileName, textStr, (err) =>
-    err ? console.log(err) : console.log("title written")
-  );
-}
-
-// This function writes the user input into the README file.
+// This function formats and writes the user input to the README file.
 function writeToFile(fileName, data) {
-  console.log(fileName);
-  console.log(data);
+  //console.log(fileName);
+  //console.log(data);
   const responseArr = [];
 
   // Push user input into an array for easy handling.
   for (let i in data) {
     responseArr.push([i, data[i]]);
   }
-  console.log(responseArr);
+  //console.log(responseArr);
 
   // Process Title
-  // 1. Use writeFile for the first write. This will either create the file and write the first line of it
-  // or overwrite the existing file. Eventually a check could be put in to see if you want the old file overwritten.
-  // 2. The first line in README is always the title.
-  let lineStr = generateMarkdown.generateMarkdown(data) + newLineReturnStr;
-  writeLine(readmeFileName, lineStr);
-
-  // 3. The title is followed by the badges.
-  lineStr = generateMarkdown.renderLicenseBadge(data.license) + generateMarkdown.renderLicenseLink(data.license) + newLineReturnStr;
-  appendLine(readmeFileName, lineStr);
+  // The first line in README is always the title.
+  let readmeText = generateMarkdown.generateMarkdown(data) + newLineReturnStr;
+console.log("readmeText----------------" + readmeText);
+  // The title is followed by the badges.
+  readmeText += generateMarkdown.renderLicenseBadge(data.license) + generateMarkdown.renderLicenseLink(data.license) + newLineReturnStr;
+  console.log("readmeText----------------" + readmeText);
 
   // Process Table of Contents
-  lineStr = generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
-  appendLine(readmeFileName, lineStr);
+  readmeText += generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
+  console.log("readmeText----------------" + readmeText);
 
-  // Continue at Description input (the second array position) and go through Questions as the last input answer.
+  // Continue at Description (the second data input) and go through Questions as the last input answer.
   for (let responseArrPtr = 1; responseArrPtr < responseArr.length; responseArrPtr++) {
     console.log("arrptr = " + responseArrPtr);
     console.log("length of arr = " + responseArr.length);
     switch (responseArr[responseArrPtr][0]) {
       case 'gitUserName' :
-           lineStr = headers[responseArrPtr] + generateMarkdown.renderQuestionsSection(data);
+           readmeText += headers[responseArrPtr] + generateMarkdown.renderQuestionsSection(data);
+           console.log("readmeText----------------" + readmeText);
+
           break;
       case 'emailAddress' :
           break; // was handled in 'gitUserName'
       default:
-          lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
+          readmeText += headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
+          console.log("readmeText----------------" + readmeText);
+
     }
-    console.log("linestr = " + lineStr);
-    appendLine(readmeFileName, lineStr);
   }
+
+  // Write the formatted input to the readme file.
+  fs.writeFile(fileName, readmeText, (err) =>
+  err ? console.log(err) : console.log("readme written")
+);
 }
 
 // Questions for user input
@@ -100,7 +90,7 @@ inquirer
       type: "input",
       message: "Enter your project title.",
       name: "title",
-    },/*
+    },
     {
       type: "editor",
       message: "Enter a brief description of your project. ",
@@ -180,7 +170,7 @@ inquirer
       type: "input",
       message: "Enter your GitHub username.",
       name: "gitUserName",
-    },*/
+    },
     {
       type: "input",
       message: "Enter your email address.",
@@ -189,12 +179,10 @@ inquirer
   ])
   .then((responses) => {
     init();
-    let test = generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
-console.log(test);
-    console.log(responses);
+    //console.log(responses);
 
     // Format and write responses to the README file.
-    //writeToFile(readmeFileName, responses);
+    writeToFile(readmeFileName, responses);
   });
 
 // Function call to initialize app
@@ -250,9 +238,9 @@ console.log(test);
 //    }
 /*    switch (responseArr[responseArrPtr][0]) {
         case 'license' :
-            lineStr = headers[responseArrPtr] + generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]) + newLineReturnStr;
+            readmeText = headers[responseArrPtr] + generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]) + newLineReturnStr;
             //generateMarkdown.renderLicenseSection(responseArr[responseArrPtr][1]);
             break;
         default:
-            lineStr = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
+            readmeText = headers[responseArrPtr] + responseArr[responseArrPtr][1] + newLineReturnStr;
     }*/

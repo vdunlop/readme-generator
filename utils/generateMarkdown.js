@@ -17,7 +17,7 @@ console.log(license);
  
   for (let i = 0; i < licenseBadgeArr.length; i++){
     if (licenseBadgeArr[i][0] == license) {
-      console.log ("return link "+licenseBadgeArr[i][1]);
+      //console.log ("return link "+licenseBadgeArr[i][1]);
       return licenseBadgeArr[i][1];
     }
   }
@@ -42,7 +42,7 @@ function renderLicenseLink(license) {
 console.log(license);
 for (let i = 0; i < licenseLinkArr.length; i++){
   if (licenseLinkArr[i][0] == license) {
-    console.log ("return link "+licenseLinkArr[i][1]);
+    //console.log ("return link "+licenseLinkArr[i][1]);
     return licenseLinkArr[i][1];
   }
 }
@@ -84,7 +84,7 @@ let newLineStr = tocStr + newLineReturnStr;
 
   for (let i=1; i < data.length; i++) {
     headerStr = prepHeading(data[i]);
-    console.log("heading = " + headerStr + " from " + data[i]);
+    //console.log("heading = " + headerStr + " from " + data[i]);
     newLineStr += '[' + headerStr + ']' + '(#' + headerStr.toLowerCase() + ')' + newLineReturnStr;
   }
   //console.log("new line " + newLineStr);
