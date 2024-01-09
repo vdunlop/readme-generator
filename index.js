@@ -111,6 +111,7 @@ inquirer
       type: "input",
       message: "Enter the link address for the mockup image.",
       name: "linkToMockupImage",
+      default: "N/A",
     },
     {
       type: "editor",
