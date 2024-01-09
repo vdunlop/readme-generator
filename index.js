@@ -30,56 +30,58 @@ const headers = [
   "## Questions", // email and GitHub name go here
 ];
 
-// Initialize
-function init() {
-}
-
 // This function formats and writes the user input to the README file.
 function writeToFile(fileName, data) {
-  //console.log(fileName);
-  //console.log(data);
   const responseArr = [];
 
   // Push user input into an array for easy handling.
   for (let i in data) {
     responseArr.push([i, data[i]]);
   }
-  //console.log(responseArr);
 
   // Process Title
   // The first line in README is always the title.
   let readmeText = generateMarkdown.generateMarkdown(data) + newLineReturnStr;
-//console.log("readmeText----------------" + readmeText);
+
   // The title is followed by the badges.
-  readmeText += generateMarkdown.renderLicenseBadge(data.license) + generateMarkdown.renderLicenseLink(data.license) + newLineReturnStr;
-  //console.log("readmeText----------------" + readmeText);
+  readmeText +=
+    generateMarkdown.renderLicenseBadge(data.license) +
+    generateMarkdown.renderLicenseLink(data.license) +
+    newLineReturnStr;
 
   // Process Table of Contents
-  readmeText += generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
-  //console.log("readmeText----------------" + readmeText);
+  readmeText +=
+    generateMarkdown.renderTOCSection(tocHeader, headers) + newLineReturnStr;
 
   // Continue at Description (the second data input) and go through Questions as the last input answer.
-  for (let responseArrPtr = 1; responseArrPtr < responseArr.length; responseArrPtr++) {
-    //console.log("arrptr = " + responseArrPtr);
-    //console.log("length of arr = " + responseArr.length);
+  for (
+    let responseArrPtr = 1;
+    responseArrPtr < responseArr.length;
+    responseArrPtr++
+  ) {
     switch (responseArr[responseArrPtr][0]) {
-      case 'gitUserName' :
-           readmeText += headers[responseArrPtr] + newLineReturnStr + generateMarkdown.renderQuestionsSection(data);
-           //console.log("readmeText----------------" + readmeText);
+      case "gitUserName":
+        readmeText +=
+          headers[responseArrPtr] +
+          newLineReturnStr +
+          generateMarkdown.renderQuestionsSection(data);
 
-          break;
-      case 'emailAddress' :
-          break; // was handled in 'gitUserName'
+        break;
+      case "emailAddress":
+        break; // was handled in 'gitUserName'
       default:
-          readmeText += headers[responseArrPtr] + newLineReturnStr + responseArr[responseArrPtr][1] + newLineReturnStr;
-          //console.log("readmeText----------------" + readmeText);
+        readmeText +=
+          headers[responseArrPtr] +
+          newLineReturnStr +
+          responseArr[responseArrPtr][1] +
+          newLineReturnStr;
     }
   }
 
   // Write the formatted input to the readme file.
   fs.writeFile(fileName, readmeText, (err) =>
-  err ? console.log(err) : console.log("README written.")
-);
+    err ? console.log(err) : console.log("README written.")
+  );
 }
 
 // Questions for user input
@@ -177,9 +179,6 @@ inquirer
     },
   ])
   .then((responses) => {
-    // Initialize if needed.
-    init();
-
     // Format and write responses to the README file.
     writeToFile(readmeFileName, responses);
   });
