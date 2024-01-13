@@ -1,6 +1,6 @@
 # readme-generator
 
-[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 ## Table of Contents
 
@@ -34,7 +34,6 @@
 ## Description
 
 The readme-generator app is a command-line application that dynamically generates a professional README file from a user's input. The README.md file will be created following guidelines from "Request-Response The Full-Stack Blog: Professional README Guide 11-14-2023".
-
 
 ### User-Story
 
@@ -77,10 +76,10 @@ WHEN I click on the links in the Table of Contents
 THEN I am taken to the corresponding section of the README
 
 
+
 ### Mock-Up
 
-https://drive.google.com/file/d/1hQO74V5jXslkkn_cB_XdEXaCpzg0NTlN/view
-https://watch.screencastify.com/v/3bGluhwMcmH4coTpKwBw
+http://drive.google.com/file/d/1hQO74V5jXslkkn_cB_XdEXaCpzg0NTlN/view
 
 ## Installation-Execution
 
@@ -117,6 +116,7 @@ You will be prompted to enter the following information:
 The longer descriptions will bring you to the default text editor. You may enter answers in the text editor in the manner that you would like added to the README. You will have to save this text editor tab in order for the data to be passed to the readme-generator.
 Execute by going to the above URL. You will be brought to a screen with an input box and Search button.
 
+
 ## Usage
 
 The Readme Generator can be used to create a projessional README.md file by answering questions in the command terminal. The REAME.md file will have a functional Table of Contents. You can later edit the README.md file to fine tune it.
@@ -128,7 +128,7 @@ N/A
 
 ## License
 
-BSD 2-Clause "Simplified" License
+The Unlicense
 
 ## Features
 
@@ -150,7 +150,7 @@ For questions and/or comments, I can be contacted at:
 
 
 
-Github: vdunlop
+Github: https://github.com/vdunlop
 
 Email: vicki.dunlop@gmail.com
 

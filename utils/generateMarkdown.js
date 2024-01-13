@@ -105,7 +105,7 @@ function renderLicenseSection(license) {
 function renderQuestionsSection(data) {
   const questionsTextStr =
     "For questions and/or comments, I can be contacted at:\r\n\r\n";
-  const gitNameStr = "Github: ";
+  const gitNameStr = "Github: https://github.com/";
   const emailStr = "Email: ";
   const newLineReturnStr = "\r\n\r\n";
 
